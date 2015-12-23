@@ -1,4 +1,6 @@
 # InvestigacionReproducible
-Curso sobre Investigación Reproducible
+Material del curso sobre Investigación Reproducible
+
+
 
 
