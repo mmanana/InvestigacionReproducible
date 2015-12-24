@@ -1,0 +1,229 @@
+
+% Default to the notebook output style
+((* if not cell_style is defined *))
+    ((* set cell_style = 'style_ipython.tplx' *))
+((* endif *))
+
+% Inherit from the specified cell style.
+((* extends cell_style *))
+
+
+%===============================================================================
+% Latex Article
+%===============================================================================
+
+((* block margins *))
+\geometry{
+    verbose,
+    %scale=0.85,
+    twoside,
+    bindingoffset=.5cm,
+    includeheadfoot,
+    tmargin=1.5cm,
+    bmargin=2cm,
+    lmargin=1.5cm,
+    rmargin=1.5cm,
+}
+((* endblock margins *))
+
+((* block packages *))
+
+% copy/paste from master.tplx, which slight modifications
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+
+    % modified from the base.tplx
+    \usepackage{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    % this is needed for sympy's 2D ascii art fractions
+    \DeclareUnicodeCharacter{9472}{-}
+    % --- end
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+% end master.tplx packages
+
+\usepackage{scrhack}
+\usepackage{python}
+\usepackage{subfiles}
+
+\usepackage[automark,headsepline,ilines,komastyle]{scrpage2}
+\pagestyle{scrheadings}
+
+% http://www.komascript.de/node/1239
+\usepackage{bigfoot}
+\raggedbottom
+\newcommand*\origfootnoterule{}
+\let\origfootnoterule\footnoterule
+\renewcommand*{\footnoterule}{\vskip 0pt plus .01fil\origfootnoterule}
+
+% font tweaks
+\usepackage{ellipsis,ragged2e,marginnote}
+\usepackage[tracking=true]{microtype}
+\usepackage{cmbright}
+\usepackage{inconsolata} % better monospaced font!
+\usepackage[T1]{fontenc}
+\renewcommand{\familydefault}{\sfdefault}
+\setkomafont{sectioning}{\normalcolor\bfseries}
+\setkomafont{disposition}{\normalcolor\bfseries}
+\usepackage{eurosym}
+
+\let\textLaTeX\LaTeX
+\renewcommand*{\LaTeX}{\hbox{\textLaTeX}}
+
+\newcommand*{\licenseinfo}{
+	\begin{center}
+    \includegraphics[width=5cm]{res/zenodo.png}                            \\[5pt]
+    \url{http://dx.doi.org/10.5281/zenodo.17157}                           \\[15pt]
+	{\bfseries License:} This work is covered by                           \\[10pt]
+	{\bfseries Creative Commons: Attribution-ShareAlike 4.0 International} \\[10pt]
+	{\bfseries (CC BY-SA 4.0)}                                             \\[10pt]
+	\url{https://creativecommons.org/licenses/by-sa/4.0/}                  \\[15pt]
+	\includegraphics[width=0.2\textwidth]{res/cc-by-sa.png}
+	\end{center}
+}
+
+% PDF info fields
+\usepackage{ifpdf}
+\ifpdf
+\pdfinfo{
+  /Author (Harald Schilly)
+  /Title (Python für Mathematiker/innen)
+  /Keywords (Python,Programmieren)
+}
+\fi
+
+((* endblock packages *))
+
+((* block docclass *))
+\documentclass[
+    twoside,
+    paper=A4,
+    pagesize,
+    fontsize=11pt,
+    headings=small,
+    %chapterprefix=on,
+    fleqn,
+    toc=flat,
+    bibliography=totoc, %totocnumbered,
+    index=totoc,
+    parskip=half,
+    listof=flat]{scrreprt}
+((* endblock docclass *))
+
+((* block body *))
+\begin{document}
+
+%%% titlepage
+    \begin{titlepage}
+    \begin{center}
+    \vspace{1cm}
+    \includegraphics[width=0.6\textwidth]{res/python-logo.pdf}  \\[10pt]
+     {\Large\bfseries für}                                       \\[25pt]
+     {\fontsize{1.2cm}{1em}\bfseries Mathematiker/innen}        \\[5pt]
+     % ----------------------------------------------------------------
+     \vspace{2cm}
+     \includegraphics[width=.9\textwidth]{res/3dplot.pdf}  \\[10pt]
+     % ----------------------------------------------------------------
+     %\vspace{1cm}
+     %{\huge{\bfseries Harald Schilly}}         \\[5pt]
+     %\textsc{harald.schilly+pp@univie.ac.at}   \\[14pt]
+     %\vspace{0.5cm}
+     %{\huge\bfseries Martin Piskernig}        \\[5pt]
+     %martin.piskernig+pp@univie.ac.at         \\[14pt]
+     % ----------------------------------------------------------------
+
+     %\vspace{3cm}
+     \vspace*{\fill}
+
+     \textsc{\large{Institut für Mathematik}} \\[7pt]
+     \textsc{\large{Universität Wien}}        \\[7pt]
+     \textsc{\large{Sommersemester 2015}}
+    \end{center}
+    \end{titlepage}
+%%% end titlepage
+
+\thispagestyle{empty}
+\KOMAoptions{open=right}
+
+\thispagestyle{empty}
+\subsection*{Build Information}
+\begin{python}
+print(r'\begin{Verbatim}[fontsize=\normalsize]')
+from subprocess import check_output
+t = check_output(['date', '--iso-8601=minutes'])
+print(r'Build time:      ' + t[:-1])
+print(r'Hostname:        ' + check_output(['hostname'])[:-1])
+x = check_output(['git', 'rev-parse', 'HEAD'])
+print("Git HEAD:        " + x[:-1])
+print("Repository:      https://github.com/haraldschilly/python-fuer-mathematiker")
+print("PDFLaTeX:        " + check_output(['pdflatex', '--version']).splitlines()[0])
+import sys
+print("Python:          " + sys.version.splitlines()[0])
+print("                 " + sys.version.splitlines()[1])
+libs = [("IPython", "IPython"),
+        ("NumPy", "numpy"),
+        ("SciPy", "scipy"),
+        ("Matplotlib", "matplotlib"),
+        ("SymPy", "sympy"),
+        ("mpmath", "mpmath"),
+        ("Pandas", "pandas"),
+        ("Statsmodels", "statsmodels"),
+        ("scikit-learn", "sklearn"),
+        ("scikit-image", "skimage"),
+        ("NetworkX", "networkx"),
+        ("YAML", "yaml"),
+        ("JSON", "json"),
+        ("CSV", "csv"),
+        ("SQLite3", "sqlite3"),
+        ("BeautifulSoup", "bs4"),
+        ("Cython", "cython")]
+import importlib
+for name, libname in libs:
+    lib = importlib.import_module(libname)
+    try:
+        vers = lib.__version__
+    except:
+        vers = lib.version
+    print("{:16s} {}".format(name + ":", vers))
+print(r'\end{Verbatim}')
+\end{python}
+
+\vspace*{\fill}
+\licenseinfo{}
+
+\tableofcontents{}
+
+\begin{python}
+from glob import glob
+subfiles = sorted(glob("?-?-*.tex"))
+chap = lastchap = None
+for fn in subfiles:
+  chap = fn[0]
+  if chap != lastchap:
+    print(r'\chapter{' + fn.rsplit('.', 1)[0][4:].replace("_"," ").title() + '}')
+  print(r'\subfile{' + fn.rsplit('.', 1)[0] + '}')
+  lastchap = chap
+\end{python}
+
+((* block bibliography *))((* endblock bibliography *))
+
+\newpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\licenseinfo{}
+
+\end{document}
+((* endblock body *))
