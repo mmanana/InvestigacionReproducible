@@ -27,6 +27,8 @@ buildpdf: latexfiles
 	pdflatex introduccion.tex
 	pdflatex otros_lenguajes.tex
 	pdflatex ejercicio_dados.tex
+	pdfjoin introduccion.pdf otros_lenguajes.pdf ejercicio_dados.pdf 
+	evince ejercicio_dados-joined.pdf
 	
 clean:
 	rm *.aux
