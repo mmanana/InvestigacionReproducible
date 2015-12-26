@@ -19,17 +19,19 @@ all: latexfiles buildpdf
 
 latexfiles:
 	ipython nbconvert --to latex introduccion.ipynb
+	ipython nbconvert --to latex git.ipynb
 	ipython nbconvert --to latex otros_lenguajes.ipynb
 	ipython nbconvert --to latex ejercicio_dados.ipynb
 	
 
 buildpdf: latexfiles
 	pdflatex introduccion.tex
+	pdflatex git.tex
 	pdflatex otros_lenguajes.tex
 	pdflatex ejercicio_dados.tex
 	octave octave_1.m
-	pdflatex myexample		
-	pdfjoin introduccion.pdf otros_lenguajes.pdf myexample.pdf ejercicio_dados.pdf 
+	pdflatex ./matweave/myexample		
+	pdfjoin introduccion.pdf git.pdf otros_lenguajes.pdf ./matweave/myexample.pdf ejercicio_dados.pdf 
 	evince ejercicio_dados-joined.pdf
 	
 clean:
