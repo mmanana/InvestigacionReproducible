@@ -35,9 +35,9 @@ buildpdf: latexfiles
 	evince ejercicio_dados-joined.pdf
 	
 clean:
-	rm *.aux
-	rm *.tex
-	rm *.out
-	rm *.log
-	rm *.pdf
+	rm -f *.aux
+	rm -f *.tex
+	rm -f *.out
+	rm -f *.log
+	rm -f *.pdf
 
