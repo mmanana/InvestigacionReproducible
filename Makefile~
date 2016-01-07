@@ -3,6 +3,7 @@
 #
 #TEMPLATE=chapter
 NOTEBOOKS=introduccion.ipynb \
+	  accesodatos.ipynb \
           otros_lenguajes.ipynb \
           ejercicio_dados.ipynb
 
@@ -20,6 +21,7 @@ all: latexfiles buildpdf
 latexfiles:
 	ipython nbconvert --to latex introduccion.ipynb
 	ipython nbconvert --to latex git.ipynb
+	ipython nbconvert --to latex accesodatos.ipynb
 	ipython nbconvert --to latex otros_lenguajes.ipynb
 	ipython nbconvert --to latex ejercicio_dados.ipynb
 	
@@ -27,11 +29,12 @@ latexfiles:
 buildpdf: latexfiles
 	pdflatex introduccion.tex
 	pdflatex git.tex
+	pdflatex accesodatos.tex
 	pdflatex otros_lenguajes.tex
 	pdflatex ejercicio_dados.tex
 	octave octave_1.m
 	pdflatex ./matweave/myexample		
-	pdfjoin introduccion.pdf git.pdf otros_lenguajes.pdf ./matweave/myexample.pdf ejercicio_dados.pdf 
+	pdfjoin introduccion.pdf git.pdf accesodatos.pdf otros_lenguajes.pdf ./matweave/myexample.pdf ejercicio_dados.pdf 
 	evince ejercicio_dados-joined.pdf
 	
 clean:
