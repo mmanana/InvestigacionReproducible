@@ -168,8 +168,7 @@ A modo de ejemplo, el histograma mostrado en la Figura \ref{fig:two}  ha sido co
 \begin{matlab}
 %}
 a = randn(1000, 1);
-b = hist(a, 30);
-bar(b);
+hist(a, 30);
 set(gca, 'fontname', fontName, 'fontsize', fontSize);
 print -dpdf myHistogram.pdf
 %{
