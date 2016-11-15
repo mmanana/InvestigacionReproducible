@@ -1,1 +1,1 @@
-source ./matweave/myexample.tex 
+source c:/users/mario/Mario/InvestigacionReproducible/matweave/myexample.tex 
