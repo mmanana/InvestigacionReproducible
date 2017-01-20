@@ -1,1 +1,1 @@
-source c:/users/mario/Mario/InvestigacionReproducible/matweave/myexample.tex 
+source c:/mario/python/ipython/InvestigacionReproducible/matweave/myexample.tex 

@@ -45,23 +45,25 @@ buildpdf: latexfiles
 	pdflatex otros_lenguajes.tex
 	pdflatex ejercicio_dados.nbconvert.tex
 	octave --no-gui ./octave_1.m
-	sleep 5
+#	octave ./octave_1.m
+#	sleep 5
+	timeout /t 5
 #	cp ./matweave/mygaussian.pdf .
 #	cp ./matweave/myhistogram.pdf .
-	cp ./matweave/*.tex .
-	cp ./matweave/myexample.tex .
+	copy /y .\matweave\*.tex .
+#	copy ./matweave/myexample.tex .
 	pdflatex myexample.tex		
 #	cp ./matweave/myexample.pdf ./myexample.pdf
 #	pdfjoin introduccion.pdf git.pdf generacion.pdf accesodatos.pdf otros_lenguajes.pdf ./myexample.pdf ejercicio_dados.pdf 
 	c:/tools/cpdf introduccion.nbconvert.pdf git.nbconvert.pdf generacion.nbconvert.pdf accesodatos.nbconvert.pdf otros_lenguajes.pdf myexample.pdf ejercicio_dados.nbconvert.pdf -o apuntes.pdf
-	cp apuntes.pdf ./doc/.
-	evince ./doc/apuntes.pdf
+	copy apuntes.pdf .\doc\.
+	evince .\doc\apuntes.pdf
 	
 clean:
-	rm -f *.nbconvert.ipynb
-	rm -f *.aux
-	rm -f *.tex
-	rm -f *.out
-	rm -f *.log
-	rm -f *.pdf
+	del -f *.nbconvert.ipynb
+	del -f *.aux
+	del -f *.tex
+	del -f *.out
+	del -f *.log
+	del -f *.pdf
 
