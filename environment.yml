@@ -7,7 +7,6 @@ dependencies:
   - matplotlib
   - scipy
   - xlsxwriter
-  - powershell_shortcut
   - spyder
   - notebook
   - jupyterlab
@@ -18,6 +17,5 @@ dependencies:
   - seaborn
   - numpy
   - pandas
-  - pylab
   - ipython
 prefix: C:\Anaconda3\envs\Python38
