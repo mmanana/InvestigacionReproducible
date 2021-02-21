@@ -1,0 +1,23 @@
+name: Python38
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - matplotlib-base
+  - matplotlib
+  - scipy
+  - xlsxwriter
+  - powershell_shortcut
+  - spyder
+  - notebook
+  - jupyterlab
+  - orange3
+  - jupyter_conda
+  - pyodbc
+  - tabulate
+  - seaborn
+  - numpy
+  - pandas
+  - pylab
+  - ipython
+prefix: C:\Anaconda3\envs\Python38
